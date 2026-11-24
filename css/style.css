@@ -1,0 +1,201 @@
+/* Mise en page de base. Les couleurs et la typographie définitives
+   seront fixées avec la charte graphique. */
+
+:root {
+  --couleur-texte: #222;
+  --couleur-fond: #fff;
+  --couleur-fond-alt: #f3f4f6;
+  --couleur-bordure: #d1d5db;
+  --couleur-principale: #1f3a68;
+  --largeur-max: 1100px;
+  --espace: 1rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  line-height: 1.5;
+  color: var(--couleur-texte);
+  background: var(--couleur-fond);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+a {
+  color: var(--couleur-principale);
+}
+
+/* En-tête et menu */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espace);
+  padding: 0.75rem var(--espace);
+  border-bottom: 1px solid var(--couleur-bordure);
+  background: var(--couleur-fond-alt);
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+
+nav ul {
+  display: flex;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav a {
+  text-decoration: none;
+}
+
+nav a:hover,
+nav a[aria-current="page"] {
+  text-decoration: underline;
+}
+
+/* Contenu */
+main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--largeur-max);
+  margin: 0 auto;
+  padding: calc(var(--espace) * 2) var(--espace);
+}
+
+/* Accueil */
+.hero {
+  text-align: center;
+  padding: 2.5rem var(--espace);
+  background: var(--couleur-fond-alt);
+  border-radius: 8px;
+}
+
+.hero h1 {
+  margin-top: 0;
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  border: 2px solid var(--couleur-principale);
+  border-radius: 6px;
+  background: var(--couleur-principale);
+  color: #fff;
+  text-decoration: none;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--couleur-principale);
+}
+
+.acces-rapide {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--espace);
+  margin: 2rem 0;
+}
+
+.carte {
+  padding: var(--espace);
+  border: 1px solid var(--couleur-bordure);
+  border-radius: 8px;
+}
+
+.carte h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+.bandeau {
+  margin-bottom: var(--espace);
+  padding: var(--espace);
+  border-left: 4px solid var(--couleur-principale);
+  background: var(--couleur-fond-alt);
+}
+
+.bandeau h2 {
+  margin: 0 0 0.25rem;
+  font-size: 1.1rem;
+}
+
+.bandeau p {
+  margin: 0;
+}
+
+/* Pied de page */
+footer {
+  padding: var(--espace);
+  border-top: 1px solid var(--couleur-bordure);
+  background: var(--couleur-fond-alt);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+footer p {
+  margin: 0.25rem 0;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .acces-rapide {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Menu mobile */
+.menu-bouton {
+  display: none;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--couleur-bordure);
+  border-radius: 6px;
+  background: var(--couleur-fond);
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  header {
+    flex-wrap: wrap;
+  }
+
+  .menu-bouton {
+    display: block;
+  }
+
+  #menu-principal {
+    display: none;
+    width: 100%;
+  }
+
+  #menu-principal.ouvert {
+    display: block;
+  }
+
+  #menu-principal ul {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+  }
+}
