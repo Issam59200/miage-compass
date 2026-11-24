@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <a class="lien-evitement" href="#contenu">Aller au contenu</a>
   <header>
     <a class="logo" href="index.html">MIAGE Compass</a>
     <button class="menu-bouton" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Ouvrir le menu">☰</button>
@@ -21,7 +22,7 @@
       </ul>
     </nav>
   </header>
-  <main>
+  <main id="contenu">
     <section class="hero">
       <h1>Candidater en MIAGE, partout en France</h1>
       <p>Les dates de candidature, les démarches et les réponses à vos questions, réunies au même endroit.</p>
@@ -57,8 +58,11 @@
     </section>
   </main>
   <footer>
-    <p><a href="pages/mentions-legales.html">Mentions légales</a></p>
-    <p>Projet étudiant du Master MIAGE de l'Université de Lille</p>
+    <div class="pied-liens">
+      <p><a href="pages/mentions-legales.html">Mentions légales et RGPD</a></p>
+      <p>Partenaires : MIAGE Connection · AML</p>
+    </div>
+    <p class="pied-projet">Projet étudiant du Master MIAGE de l'Université de Lille</p>
   </footer>
   <script src="js/menu.js"></script>
 </body>

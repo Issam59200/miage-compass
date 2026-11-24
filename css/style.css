@@ -7,6 +7,7 @@
   --couleur-fond-alt: #f3f4f6;
   --couleur-bordure: #d1d5db;
   --couleur-principale: #1f3a68;
+  --couleur-focus: #b45309;
   --largeur-max: 1100px;
   --espace: 1rem;
 }
@@ -30,6 +31,27 @@ body {
 
 a {
   color: var(--couleur-principale);
+}
+
+/* Focus visible pour la navigation au clavier */
+:focus-visible {
+  outline: 3px solid var(--couleur-focus);
+  outline-offset: 2px;
+}
+
+/* Lien d'évitement : caché, il apparaît quand on arrive dessus avec Tab */
+.lien-evitement {
+  position: absolute;
+  top: -100px;
+  left: var(--espace);
+  z-index: 10;
+  padding: 0.5rem 1rem;
+  background: var(--couleur-principale);
+  color: #fff;
+}
+
+.lien-evitement:focus {
+  top: var(--espace);
 }
 
 /* En-tête et menu */
@@ -150,11 +172,24 @@ footer {
   border-top: 1px solid var(--couleur-bordure);
   background: var(--couleur-fond-alt);
   font-size: 0.9rem;
-  text-align: center;
 }
 
 footer p {
   margin: 0.25rem 0;
+}
+
+/* Mentions légales à gauche, partenaires à droite (comme le wireframe) */
+.pied-liens {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0 var(--espace);
+  max-width: var(--largeur-max);
+  margin: 0 auto;
+}
+
+.pied-projet {
+  text-align: center;
 }
 
 /* Mobile */
@@ -180,17 +215,27 @@ footer p {
     flex-wrap: wrap;
   }
 
-  .menu-bouton {
-    display: block;
-  }
-
   #menu-principal {
-    display: none;
     width: 100%;
   }
 
-  #menu-principal.ouvert {
+  /* Le menu n'est replié que si JavaScript fonctionne (classe "js"
+     ajoutée par menu.js) : sans JS, il reste visible. */
+  .js .menu-bouton {
     display: block;
+  }
+
+  .js #menu-principal {
+    display: none;
+  }
+
+  .js #menu-principal.ouvert {
+    display: block;
+  }
+
+  .pied-liens {
+    flex-direction: column;
+    align-items: center;
   }
 
   #menu-principal ul {
