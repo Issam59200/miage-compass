@@ -163,3 +163,39 @@ footer p {
     grid-template-columns: 1fr;
   }
 }
+
+/* Menu mobile */
+.menu-bouton {
+  display: none;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--couleur-bordure);
+  border-radius: 6px;
+  background: var(--couleur-fond);
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  header {
+    flex-wrap: wrap;
+  }
+
+  .menu-bouton {
+    display: block;
+  }
+
+  #menu-principal {
+    display: none;
+    width: 100%;
+  }
+
+  #menu-principal.ouvert {
+    display: block;
+  }
+
+  #menu-principal ul {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+  }
+}
