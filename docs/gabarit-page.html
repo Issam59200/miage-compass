@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--
+  GABARIT DE PAGE MIAGE Compass
+  Pour créer une nouvelle page :
+  1. Copier ce fichier dans pages/ et le renommer (ex. pages/ma-page.html).
+  2. Remplacer TITRE et DESCRIPTION.
+  3. Mettre aria-current="page" sur le lien du menu de la page (s'il y en a un).
+  4. Écrire le contenu dans <main>.
+  Les chemins sont écrits pour une page placée dans pages/.
+-->
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TITRE | MIAGE Compass</title>
+  <meta name="description" content="DESCRIPTION">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <a class="lien-evitement" href="#contenu">Aller au contenu</a>
+  <header>
+    <a class="logo" href="../index.html">MIAGE <span>Compass</span></a>
+    <!-- Sélecteur de langue FR / EN : ajouté avec la carte « Multilingue » -->
+    <button class="menu-bouton" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Ouvrir le menu">☰</button>
+    <nav id="menu-principal" aria-label="Menu principal">
+      <ul>
+        <li><a href="calendrier.html">Calendrier</a></li>
+        <li><a href="guide.html">Guide</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="miages.html">Les MIAGE</a></li>
+        <li><a href="a-propos.html">À propos</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main id="contenu">
+    <h1>TITRE</h1>
+    <p>Contenu de la page.</p>
+  </main>
+  <footer>
+    <div class="pied-liens">
+      <p><a href="mentions-legales.html">Mentions légales et RGPD</a></p>
+      <p>Partenaires : MIAGE Connection · AML</p>
+    </div>
+    <p class="pied-projet">Projet étudiant du Master MIAGE de l'Université de Lille</p>
+  </footer>
+  <script src="../js/menu.js"></script>
+</body>
+</html>
