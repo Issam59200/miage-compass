@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Propositions de palettes | MIAGE Compass</title>
+  <!--
+    Page de travail (pas une page du site) : compare 3 palettes possibles
+    pour la charte graphique. Les contrastes sont calculés automatiquement
+    (règle WCAG : 4,5:1 minimum pour du texte normal, niveau AA).
+  -->
+  <style>
+    body {
+      margin: 0;
+      padding: 1.5rem;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.5;
+      color: #222;
+      background: #fafafa;
+    }
+
+    h1 { margin-top: 0; }
+
+    .palettes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .palette {
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .palette h2 { margin: 0 0 0.25rem; font-size: 1.2rem; }
+    .palette > p { margin: 0 0 1rem; color: #555; }
+
+    .pastilles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .pastille { font-size: 0.75rem; text-align: center; }
+
+    .pastille span {
+      display: block;
+      width: 56px;
+      height: 40px;
+      margin-bottom: 0.2rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    /* Mini-maquette, colorée par les variables de chaque palette */
+    .maquette {
+      overflow: hidden;
+      border: 1px solid var(--bordure);
+      border-radius: 8px;
+      color: var(--texte);
+      background: var(--fond);
+    }
+
+    .m-entete {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--bordure);
+      background: var(--fond-alt);
+      font-size: 0.85rem;
+    }
+
+    .m-entete strong { color: var(--principale); }
+    .m-entete a { margin-left: 0.6rem; color: var(--principale); text-decoration: none; }
+
+    .m-hero {
+      margin: 0.75rem;
+      padding: 1rem;
+      border-radius: 8px;
+      background: var(--fond-alt);
+      text-align: center;
+    }
+
+    .m-hero h3 { margin: 0 0 0.25rem; }
+    .m-hero p { margin: 0 0 0.75rem; font-size: 0.9rem; }
+
+    .m-btn {
+      display: inline-block;
+      margin: 0.2rem;
+      padding: 0.4rem 0.9rem;
+      border: 2px solid var(--principale);
+      border-radius: 6px;
+      background: var(--principale);
+      color: #fff;
+      font-size: 0.9rem;
+    }
+
+    .m-btn.secondaire { background: transparent; color: var(--principale); }
+
+    .m-carte {
+      margin: 0 0.75rem 0.75rem;
+      padding: 0.75rem;
+      border: 1px solid var(--bordure);
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+
+    .m-carte a { color: var(--principale); font-weight: bold; }
+
+    .m-badges { margin-top: 0.4rem; }
+
+    .m-badge {
+      display: inline-block;
+      margin-right: 0.3rem;
+      padding: 0.1rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+    }
+
+    .m-badge.verifie { border: 1px solid var(--accent); color: var(--accent); }
+    .m-badge.confirme { background: var(--confirme-fond); color: var(--confirme); }
+    .m-badge.a-confirmer { background: var(--a-confirmer-fond); color: var(--a-confirmer); }
+
+    .m-bandeau {
+      margin: 0 0.75rem 0.75rem;
+      padding: 0.6rem 0.75rem;
+      border-left: 4px solid var(--accent);
+      background: var(--fond-alt);
+      font-size: 0.9rem;
+    }
+
+    table { width: 100%; margin-top: 1rem; border-collapse: collapse; font-size: 0.85rem; }
+    th, td { padding: 0.3rem 0.4rem; border-bottom: 1px solid #eee; text-align: left; }
+    .ok { color: #166534; font-weight: bold; }
+    .ko { color: #b91c1c; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>MIAGE Compass : propositions de palettes</h1>
+  <p>Trois pistes pour la charte graphique. Chaque palette est montrée sur une mini-maquette de l'accueil, avec les contrastes vérifiés automatiquement.</p>
+
+  <div class="palettes" id="palettes"></div>
+
+  <script>
+    // Les 3 palettes proposées
+    const palettes = [
+      {
+        nom: "A. Bleu nuit et cuivre",
+        idee: "Sérieux et institutionnel, avec une touche chaude rappelant une boussole en laiton.",
+        couleurs: {
+          principale: "#1b3358", accent: "#b45309", texte: "#1c2333",
+          fond: "#ffffff", "fond-alt": "#f4f6fa", bordure: "#d5dbe5"
+        }
+      },
+      {
+        nom: "B. Bleu pétrole et corail",
+        idee: "Plus moderne et plus doux, ambiance « orientation » et carte.",
+        couleurs: {
+          principale: "#0f5257", accent: "#c2412d", texte: "#172426",
+          fond: "#ffffff", "fond-alt": "#f1f6f6", bordure: "#cfdede"
+        }
+      },
+      {
+        nom: "C. Indigo et or",
+        idee: "Plus marqué et plus « étudiant », l'or rappelant l'aiguille de la boussole.",
+        couleurs: {
+          principale: "#3730a3", accent: "#a16207", texte: "#1e1b3a",
+          fond: "#ffffff", "fond-alt": "#f5f5fb", bordure: "#d9d8ec"
+        }
+      }
+    ];
+
+    // Couleurs de statut, communes aux 3 palettes
+    const statuts = {
+      confirme: "#166534", "confirme-fond": "#dcfce7",
+      "a-confirmer": "#92400e", "a-confirmer-fond": "#fef3c7"
+    };
+
+    // Calcul du contraste WCAG entre deux couleurs
+    function luminance(hex) {
+      const rgb = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
+      const lin = rgb.map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
+      return 0.2126 * lin[0] + 0.7152 * lin[1] + 0.0722 * lin[2];
+    }
+
+    function contraste(a, b) {
+      const [l1, l2] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+      return (l1 + 0.05) / (l2 + 0.05);
+    }
+
+    const conteneur = document.querySelector("#palettes");
+
+    for (const p of palettes) {
+      const c = { ...p.couleurs, ...statuts };
+
+      const tests = [
+        ["Texte sur fond", c.texte, c.fond],
+        ["Texte sur fond alterné", c.texte, c["fond-alt"]],
+        ["Bouton (blanc sur principale)", "#ffffff", c.principale],
+        ["Liens sur fond", c.principale, c.fond],
+        ["Liens sur fond alterné", c.principale, c["fond-alt"]],
+        ["Accent sur fond", c.accent, c.fond],
+        ["Badge « confirmé »", c.confirme, c["confirme-fond"]],
+        ["Badge « à confirmer »", c["a-confirmer"], c["a-confirmer-fond"]]
+      ];
+
+      const lignes = tests.map(([nom, a, b]) => {
+        const r = contraste(a, b);
+        const ok = r >= 4.5;
+        return `<tr><td>${nom}</td><td>${r.toFixed(1)}:1</td>` +
+          `<td class="${ok ? "ok" : "ko"}">${ok ? "AA ✓" : "insuffisant"}</td></tr>`;
+      }).join("");
+
+      const pastilles = Object.entries(p.couleurs).map(([nom, val]) =>
+        `<div class="pastille"><span style="background:${val}"></span>${nom}<br>${val}</div>`
+      ).join("");
+
+      const variables = Object.entries(c).map(([nom, val]) => `--${nom}:${val}`).join(";");
+
+      const bloc = document.createElement("section");
+      bloc.className = "palette";
+      bloc.innerHTML = `
+        <h2>${p.nom}</h2>
+        <p>${p.idee}</p>
+        <div class="pastilles">${pastilles}</div>
+        <div class="maquette" style="${variables}">
+          <div class="m-entete">
+            <strong>MIAGE Compass</strong>
+            <span><a href="#">Calendrier</a><a href="#">Guide</a><a href="#">FAQ</a></span>
+          </div>
+          <div class="m-hero">
+            <h3>Candidater en MIAGE, partout en France</h3>
+            <p>Dates, démarches et réponses au même endroit.</p>
+            <span class="m-btn">Voir le calendrier</span>
+            <span class="m-btn secondaire">Lire le guide</span>
+          </div>
+          <div class="m-carte">
+            <a href="#">MIAGE Lille · M1</a><br>
+            Ouvre le 01/03 · clôt le 15/04
+            <div class="m-badges">
+              <span class="m-badge verifie">vérifié le 12/01</span>
+              <span class="m-badge confirme">confirmé</span>
+              <span class="m-badge a-confirmer">à confirmer</span>
+            </div>
+          </div>
+          <div class="m-bandeau"><strong>Des informations vérifiées</strong><br>Chaque date a sa source officielle.</div>
+        </div>
+        <table>
+          <thead><tr><th>Combinaison</th><th>Contraste</th><th>Résultat</th></tr></thead>
+          <tbody>${lignes}</tbody>
+        </table>`;
+      conteneur.appendChild(bloc);
+    }
+  </script>
+</body>
+</html>
