@@ -1,15 +1,36 @@
-/* Mise en page de base. Les couleurs et la typographie définitives
-   seront fixées avec la charte graphique. */
+/* Feuille de style de MIAGE Compass.
+   Charte graphique : palette « Pétrole profond » (voir docs/charte-graphique.md). */
 
 :root {
-  --couleur-texte: #222;
-  --couleur-fond: #fff;
-  --couleur-fond-alt: #f3f4f6;
-  --couleur-bordure: #d1d5db;
-  --couleur-principale: #1f3a68;
-  --couleur-focus: #b45309;
+  /* Couleurs de la charte */
+  --couleur-petrole-nuit: #0c3036;   /* en-tête et accueil */
+  --couleur-principale: #12505a;     /* liens, éléments de structure */
+  --couleur-corail: #ff8f73;         /* action principale sur fond sombre */
+  --couleur-corail-texte: #ad3a25;   /* corail lisible sur fond clair */
+  --couleur-corail-doux: #fde3db;    /* fond des badges « vérifié » */
+  --couleur-creme: #f4efe6;          /* texte sur fond sombre */
+  --couleur-creme-doux: #c3d2d0;     /* texte secondaire sur fond sombre */
+
+  --couleur-texte: #14262a;
+  --couleur-texte-doux: #4a5d61;
+  --couleur-fond: #faf7f2;
+  --couleur-fond-alt: #efe9df;
+  --couleur-carte: #ffffff;
+  --couleur-bordure: #ddd4c6;
+  --couleur-motif: #17444b;          /* lignes de niveau du hero */
+
+  /* Statuts des dates (utilisés plus tard par le calendrier) */
+  --couleur-confirme: #166534;
+  --couleur-confirme-fond: #dcfce7;
+  --couleur-a-confirmer: #92400e;
+  --couleur-a-confirmer-fond: #fef3c7;
+
+  --couleur-focus: var(--couleur-corail-texte);
+
+  /* Mise en page */
   --largeur-max: 1100px;
   --espace: 1rem;
+  --rayon: 10px;
 }
 
 *,
@@ -29,14 +50,32 @@ body {
   min-height: 100vh;
 }
 
+h1,
+h2 {
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
 a {
   color: var(--couleur-principale);
+  text-underline-offset: 3px;
+}
+
+::selection {
+  background: var(--couleur-corail-doux);
+  color: var(--couleur-texte);
 }
 
 /* Focus visible pour la navigation au clavier */
 :focus-visible {
   outline: 3px solid var(--couleur-focus);
   outline-offset: 2px;
+}
+
+/* Sur fond sombre, le focus passe en corail clair pour rester visible */
+header :focus-visible,
+.hero :focus-visible {
+  outline-color: var(--couleur-corail);
 }
 
 /* Lien d'évitement : caché, il apparaît quand on arrive dessus avec Tab */
@@ -46,8 +85,10 @@ a {
   left: var(--espace);
   z-index: 10;
   padding: 0.5rem 1rem;
-  background: var(--couleur-principale);
-  color: #fff;
+  border-radius: 6px;
+  background: var(--couleur-corail);
+  color: var(--couleur-petrole-nuit);
+  font-weight: 600;
 }
 
 .lien-evitement:focus {
@@ -60,15 +101,20 @@ header {
   align-items: center;
   justify-content: space-between;
   gap: var(--espace);
-  padding: 0.75rem var(--espace);
-  border-bottom: 1px solid var(--couleur-bordure);
-  background: var(--couleur-fond-alt);
+  padding: 0.85rem var(--espace);
+  background: var(--couleur-petrole-nuit);
+  color: var(--couleur-creme);
 }
 
 .logo {
-  font-weight: bold;
+  color: var(--couleur-creme);
+  font-weight: 700;
   font-size: 1.2rem;
   text-decoration: none;
+}
+
+.logo span {
+  color: var(--couleur-corail);
 }
 
 nav ul {
@@ -80,12 +126,16 @@ nav ul {
 }
 
 nav a {
+  color: var(--couleur-creme);
   text-decoration: none;
 }
 
 nav a:hover,
 nav a[aria-current="page"] {
   text-decoration: underline;
+  text-decoration-color: var(--couleur-corail);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
 }
 
 /* Contenu */
@@ -99,14 +149,40 @@ main {
 
 /* Accueil */
 .hero {
+  position: relative;
+  overflow: hidden;
   text-align: center;
-  padding: 2.5rem var(--espace);
-  background: var(--couleur-fond-alt);
-  border-radius: 8px;
+  padding: 3rem var(--espace);
+  border-radius: var(--rayon);
+  background: var(--couleur-petrole-nuit);
+  color: var(--couleur-creme);
+}
+
+/* Lignes de niveau (carte topographique) en fond du hero */
+.hero-motif {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--couleur-motif);
+  pointer-events: none;
+}
+
+.hero > *:not(.hero-motif) {
+  position: relative;
 }
 
 .hero h1 {
-  margin-top: 0;
+  margin: 0 auto 0.75rem;
+  max-width: 18ch;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  letter-spacing: -0.02em;
+}
+
+.hero p {
+  margin: 0 auto;
+  max-width: 50ch;
+  color: var(--couleur-creme-doux);
 }
 
 .hero-actions {
@@ -114,22 +190,34 @@ main {
   justify-content: center;
   flex-wrap: wrap;
   gap: 0.75rem;
-  margin-top: 1.5rem;
+  margin-top: 1.75rem;
 }
 
 .btn {
   display: inline-block;
-  padding: 0.6rem 1.2rem;
-  border: 2px solid var(--couleur-principale);
-  border-radius: 6px;
-  background: var(--couleur-principale);
-  color: #fff;
+  padding: 0.65rem 1.4rem;
+  border: 2px solid var(--couleur-corail);
+  border-radius: 999px;
+  background: var(--couleur-corail);
+  color: #2a0f08;
+  font-weight: 600;
   text-decoration: none;
 }
 
+.btn:hover {
+  background: #ffa58f;
+  border-color: #ffa58f;
+}
+
 .btn-secondary {
+  border-color: var(--couleur-creme);
   background: transparent;
-  color: var(--couleur-principale);
+  color: var(--couleur-creme);
+}
+
+.btn-secondary:hover {
+  border-color: var(--couleur-creme);
+  background: rgb(244 239 230 / 0.12);
 }
 
 .acces-rapide {
@@ -140,9 +228,10 @@ main {
 }
 
 .carte {
-  padding: var(--espace);
+  padding: 1.1rem 1.25rem;
   border: 1px solid var(--couleur-bordure);
-  border-radius: 8px;
+  border-radius: var(--rayon);
+  background: var(--couleur-carte);
 }
 
 .carte h2 {
@@ -150,10 +239,23 @@ main {
   font-size: 1.2rem;
 }
 
+.carte h2 a {
+  text-decoration: none;
+}
+
+.carte h2 a:hover {
+  text-decoration: underline;
+}
+
+.carte p {
+  margin-bottom: 0;
+  color: var(--couleur-texte-doux);
+}
+
 .bandeau {
   margin-bottom: var(--espace);
-  padding: var(--espace);
-  border-left: 4px solid var(--couleur-principale);
+  padding: 1rem 1.25rem;
+  border-radius: var(--rayon);
   background: var(--couleur-fond-alt);
 }
 
@@ -164,13 +266,15 @@ main {
 
 .bandeau p {
   margin: 0;
+  color: var(--couleur-texte-doux);
 }
 
 /* Pied de page */
 footer {
-  padding: var(--espace);
+  padding: 1.25rem var(--espace);
   border-top: 1px solid var(--couleur-bordure);
   background: var(--couleur-fond-alt);
+  color: var(--couleur-texte-doux);
   font-size: 0.9rem;
 }
 
@@ -203,9 +307,10 @@ footer p {
 .menu-bouton {
   display: none;
   padding: 0.3rem 0.6rem;
-  border: 1px solid var(--couleur-bordure);
+  border: 1px solid var(--couleur-creme-doux);
   border-radius: 6px;
-  background: var(--couleur-fond);
+  background: transparent;
+  color: var(--couleur-creme);
   font-size: 1.3rem;
   cursor: pointer;
 }
@@ -242,5 +347,9 @@ footer p {
     flex-direction: column;
     gap: 0.5rem;
     padding: 0.5rem 0;
+  }
+
+  .hero {
+    padding: 2.25rem var(--espace);
   }
 }
